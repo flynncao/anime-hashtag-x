@@ -27,16 +27,17 @@ const calculatedWidth = computed(() => {
 </script>
 
 <template>
-  <input
-    id="input"
+  <textarea
+    id="textarea"
     v-model="modelValue"
     type="text"
     v-bind="$attrs"
     p="x-4 y-2"
     text="center"
+    rows="5"
     bg="transparent"
     :class="calculatedWidth"
     border="~ rounded gray-200 dark:gray-700"
     outline="none active:none"
-  >
+  />
 </template>

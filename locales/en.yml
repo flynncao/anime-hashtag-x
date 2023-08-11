@@ -5,10 +5,12 @@ button:
   home: Home
   toggle_dark: Toggle dark mode
   toggle_langs: Change languages
+  copy: Copy
 intro:
-  desc: Opinionated Vite Starter Template
+  desc: Generate your anime hashtag with multiple languages
   dynamic-route: Demo of dynamic route
   hi: Hi, {name}!
   aka: Also known as
-  whats-your-name: What's your name?
+  whats-your-name: What's your anime's name?
 not-found: Not found
+copied: Copied!
