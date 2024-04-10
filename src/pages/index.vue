@@ -22,8 +22,7 @@ function go() {
     }).then((res) => {
       if (!Object.keys(res.data).length)
         toast.error(t('not-found'))
-      else
-        content.value = `#${purify(res.data.list[0].name_cn)} #${purify(res.data.list[0].name)}`
+      content.value = `#${purify(res.data.list[0].name_cn)} #${purify(res.data.list[0].name)}`
     }).catch((error) => {
       if (axios.isAxiosError(error))
         handleAxiosError(error)
