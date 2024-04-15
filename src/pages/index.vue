@@ -112,7 +112,7 @@ function handleCopy() {
 <template>
   <div class="mt-4">
     <p>
-      <a rel="noreferrer" href="https://github.com/antfu/vitesse" target="_blank">
+      <a rel="noreferrer" href="https://github.com/flynncao/twitter-anime-hashtag" target="_blank">
         <div class="mx-auto my-2 h-20 w-20">
           <img src="twitterhashtagx.svg" alt="" srcset="">
         </div>
