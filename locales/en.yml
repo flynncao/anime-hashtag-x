@@ -1,16 +1,22 @@
 button:
   about: About
   back: Back
+  copy: Copy
   go: GO
   home: Home
+  manually-select: Manual selection
+  reset: Clear
   toggle_dark: Toggle dark mode
   toggle_langs: Change languages
-  copy: Copy
+copied: Copied!
 intro:
+  aka: Also known as
   desc: Generate your anime hashtag with multiple languages
   dynamic-route: Demo of dynamic route
   hi: Hi, {name}!
-  aka: Also known as
+  not-supported: English input/conversion is currently not supported
   whats-your-name: What's your anime's name?
 not-found: Not found
-copied: Copied!
+text:
+  at-least-one-lang: Select at least one target language
+  target: Target language

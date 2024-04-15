@@ -1,0 +1,22 @@
+button:
+  about: について
+  back: 戻る
+  copy: コピー
+  go: 確認する
+  home: 家
+  manually-select: 手動選択
+  reset: リセット
+  toggle_dark: ダークモードを切り替える
+  toggle_langs: 言語を変更する
+copied: コピーしました！
+intro:
+  aka: としても知られている
+  desc: 複数の言語でアニメのハッシュタグを生成します
+  dynamic-route: 動的ルートのデモ
+  hi: こんにちは!
+  not-supported: 英語の入力/変換は現在サポートされていません
+  whats-your-name: アニメの名前は何ですか?
+not-found: 見つかりません
+text:
+  at-least-one-lang: 少なくとも 1 つのターゲット言語を選択してください
+  target: 目標とする言語

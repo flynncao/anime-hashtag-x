@@ -12,6 +12,8 @@ const i18n = createI18n({
   messages: {},
 })
 
+const storedLocale = useStorage('animehashtagx-lang', 'zh-CN')
+
 const localesMap = Object.fromEntries(
   Object.entries(import.meta.glob('../../locales/*.yml'))
     .map(([path, loadLocale]) => [path.match(/([\w-]*)\.yml$/)?.[1], loadLocale]),
@@ -23,6 +25,7 @@ const loadedLanguages: string[] = []
 
 function setI18nLanguage(lang: Locale) {
   i18n.global.locale.value = lang as any
+  storedLocale.value = lang
   if (typeof document !== 'undefined')
     document.querySelector('html')?.setAttribute('lang', lang)
   return lang
@@ -46,5 +49,6 @@ export async function loadLanguageAsync(lang: string): Promise<Locale> {
 
 export const install: UserModule = ({ app }) => {
   app.use(i18n)
-  loadLanguageAsync('zh-CN')
+
+  loadLanguageAsync(storedLocale.value)
 }

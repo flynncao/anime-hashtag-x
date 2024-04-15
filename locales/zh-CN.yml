@@ -6,11 +6,17 @@ button:
   home: 首页
   toggle_dark: 切换深色模式
   toggle_langs: 切换语言
+  reset: 清空
+  manually-select: 手动选择
 copied: 复制了！
+text:
+  target: 目标语言
+  at-least-one-lang: 至少选择一种目标语言
 intro:
   aka: 也叫
-  desc: 生成你的动漫标签
+  desc: 生成你的多语言番剧标签
   dynamic-route: 动态路由演示
   hi: 你好，{name}
   whats-your-name: 输入你的的番剧名
+  not-supported: 目前英文输入/转化暂不受支持
 not-found: 未找到页面

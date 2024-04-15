@@ -2,6 +2,7 @@
 type Size = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | '7xl' | '8xl' | '9xl'
 const props = defineProps<{
   size?: Size
+  placeholder?: string
 }>()
 const { modelValue } = defineModels<{
   modelValue: string
@@ -39,5 +40,6 @@ const calculatedWidth = computed(() => {
     :class="calculatedWidth"
     border="~ rounded gray-200 dark:gray-700"
     outline="none active:none"
+    :placeholder="placeholder"
   />
 </template>

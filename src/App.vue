@@ -15,7 +15,7 @@ useHead({
     {
       rel: 'icon',
       type: 'image/svg+xml',
-      href: () => './twitter-outlined.svg',
+      href: () => 'twitterhashtagx.svg',
     },
   ],
 })
