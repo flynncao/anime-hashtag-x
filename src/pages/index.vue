@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { useClipboard } from '@vueuse/core'
 import axios from 'axios'
-import { useToast } from 'vue-toastification'
+import * as vueToastification from 'vue-toastification'
 
 defineOptions({
   name: 'IndexPage',
 })
+const { useToast } = vueToastification
 const toast = useToast()
 const name = ref('')
 const content = ref('')
