@@ -114,7 +114,7 @@ function handleCopy() {
     <p>
       <a rel="noreferrer" href="https://github.com/flynncao/twitter-anime-hashtag" target="_blank">
         <div class="mx-auto my-2 h-20 w-20">
-          <img src="twitterhashtagx.svg" alt="" srcset="">
+          <img src="/twitterhashtagx.svg" alt="" srcset="">
         </div>
         <p text-lg transition-all class="hover:text-[#0F766E]">
           {{ t('intro.desc') }}
