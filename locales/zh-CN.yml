@@ -20,3 +20,6 @@ intro:
   whats-your-name: 输入你的的番剧名
   not-supported: 目前英文输入/转化暂不受支持
 not-found: 未找到页面
+toast:
+  no-result: 没有结果
+  no-valid-result: 没有有效结果,换个词试试吧

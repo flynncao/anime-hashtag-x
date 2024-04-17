@@ -1,6 +1,10 @@
 {
-  "extends": [
-    "@antfu",
-    "@unocss"
-  ]
+	"extends": [
+		"@antfu",
+		"@unocss"
+	],
+	"rules": {
+		"no-unused-vars": "off",
+		"no-console": "off",
+	}
 }
