@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useClipboard } from '@vueuse/core'
-import axios from 'axios'
 import * as vueToastification from 'vue-toastification'
+import { searchBangumiSubjectAsyncPost } from '~/api/index'
 
 defineOptions({
   name: 'IndexPage',
@@ -18,6 +18,7 @@ enum HashtagState {
   Calculated,
 }
 const state = ref<HashtagState>(HashtagState.Ready)
+const cachedList = ref([])
 const targetLangIcons = reactive([
   {
     icon: 'i-twemoji-flag-for-flag-japan',
@@ -58,29 +59,35 @@ watch(copied, (val) => {
 })
 function go() {
   if (name.value) {
-    state.value = HashtagState.Inputing
-    axios.get(`https://api.bgm.tv/search/subject/${name.value}?type=2&responseGroup=small`, {
-      responseType: 'json',
-    }).then((res) => {
-      const list = res.data.list
+    searchBangumiSubjectAsyncPost({ limit: 100, offset: 0 }, {
+      keyword: name.value,
+      sort: 'rank',
+      filter: {
+        type: [2],
+      },
+    }).then((res: any) => {
+      if (res.data.data.length === 0) {
+        toast.error(t('toast.no-result'))
+        return
+      }
+      const extremeSimplified = (str: string) => str.replace(/[\s【】!！・「」]/g, '')
+      const nameMatching = (str: string) => (extremeSimplified(str).includes(extremeSimplified(name.value)))
+      const list = res.data.data.filter((item: any) => item.rank !== 0 && (nameMatching(item.name) || nameMatching(item.name_cn))).sort((a: any, b: any) => a.rank - b.rank, res.data)
+      cachedList.value = list
+      console.log('cachedList:', list)
       if (!list.length) {
-        toast.error(t('not-found'))
+        toast.info(t('toast.no-valid-result'))
         return
       }
       targetLangIcons.forEach((item) => {
         if (item.checked && item.locale === 'ja')
-          item.value = `#${purify(res.data.list[0].name)} `
+          item.value = `#${purify(list[0].name)} `
 
         if (item.checked && item.locale === 'zh-CN')
-          item.value = `#${purify(res.data.list[0].name_cn)} `
+          item.value = `#${purify(list[0].name_cn)} `
       })
       state.value = HashtagState.Calculated
       content.value = getResultText()
-    }).catch((error) => {
-      if (axios.isAxiosError(error))
-        handleAxiosError(error)
-      else
-        handleUnexpectedError(error)
     })
   }
 }
@@ -89,6 +96,7 @@ function reset() {
   name.value = ''
   content.value = ''
   state.value = HashtagState.Ready
+  cachedList.value = []
   targetLangIcons.forEach((item) => {
     item.value = ''
   })
@@ -97,14 +105,7 @@ function reset() {
 function purify(str: string) {
   return str.trim().replace(/[\s【】!！「」]/g, '')
 }
-function handleAxiosError(err?: any) {
-  if (err)
-    toast.error(err instanceof Error ? err.message : err.toString())
-}
-function handleUnexpectedError(err?: any) {
-  if (err)
-    toast.error(err)
-}
+
 function handleCopy() {
   copy(resultText.value)
 }
