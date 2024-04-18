@@ -23,3 +23,6 @@ not-found: 未找到页面
 toast:
   no-result: 没有结果
   no-valid-result: 没有有效结果,换个词试试吧
+label:
+  input: 输入
+  output: 得到
