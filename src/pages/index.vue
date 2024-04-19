@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { useClipboard } from '@vueuse/core'
-import * as vueToastification from 'vue-toastification'
+import { useToast } from 'vue-toastification'
 import { searchMALAnimeListAsync } from '~/api/MyAnilist'
 import { searchBangumiSubjectAsyncPost } from '~/api/index'
 
 defineOptions({
   name: 'IndexPage',
 })
-const { useToast } = vueToastification
 const toast = useToast()
 const name = ref('')
 const content = ref('')

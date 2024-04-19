@@ -1,6 +1,4 @@
-import * as vueToastification from 'vue-toastification'
-
-const { useToast } = vueToastification
+import { useToast } from 'vue-toastification'
 
 const toast = useToast()
 
