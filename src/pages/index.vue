@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { useClipboard } from '@vueuse/core'
 import { useToast } from 'vue-toastification'
-import { searchMALAnimeListAsync } from '~/api/MyAnilist'
+import { useAnimeStore } from '../composables/store/index'
+import { searchMALAnimeListAsync } from '~/api/MAL'
 import { searchBangumiSubjectAsyncPost } from '~/api/index'
 
 defineOptions({
   name: 'IndexPage',
 })
+const animeStore = useAnimeStore()
 const toast = useToast()
 const name = ref('')
 const content = ref('')
@@ -35,13 +37,13 @@ const targetLangIcons = reactive([
     value: '',
     placeholder: '#铁臂阿童木',
   },
-  {
-    icon: 'i-twemoji-flag-for-flag-united-kingdom',
-    checked: false,
-    locale: 'en',
-    value: '',
-    placeholder: '#TetsuwanAtom',
-  },
+  // {
+  //   icon: 'i-twemoji-flag-for-flag-united-kingdom',
+  //   checked: false,
+  //   locale: 'en',
+  //   value: '',
+  //   placeholder: '#TetsuwanAtom',
+  // },
 ])
 const targetLangs = computed(() => targetLangIcons.filter((item: any) => item.checked).map(item => item.locale))
 const targetLangsLength = computed(() => targetLangs.value.length)
@@ -84,6 +86,7 @@ function go() {
           return
         }
         let jpName = ''
+        animeStore.changeAnimeUrl(list[0].image)
         targetLangIcons.forEach((item) => {
           if (item.checked && item.locale === 'ja') {
             jpName = `${purify(list[0].name)} `
@@ -110,6 +113,7 @@ function go() {
       }).then((res) => {
         const list = res.data.data
         cachedMALList.value = list
+        animeStore.changeAnimeUrl(list[0].node.url)
         targetLangIcons.forEach((item) => {
           if (item.checked && item.locale === 'en')
             item.value = `#${purify(list[0].node.title)} `
@@ -127,7 +131,7 @@ function go() {
       }), Promise.resolve())
     }
 
-    runSequentially([bangumiPromise, MALPromise]).then(() => {
+    runSequentially([bangumiPromise]).then(() => {
       state.value = HashtagState.Calculated
       content.value = getResultText()
     }).catch((err: Error) => {
@@ -157,92 +161,99 @@ function handleCopy() {
 </script>
 
 <template>
-  <div class="mt-4">
-    <p>
-      <a rel="noreferrer" href="https://github.com/flynncao/twitter-anime-hashtag" target="_blank">
-        <div class="mx-auto my-2 h-20 w-20">
-          <img src="/favicon.svg" alt="" srcset="">
-        </div>
-        <p text-lg transition-all class="hover:text-[#0F766E]">
-          {{ t('intro.desc') }}
+  <div>
+    <div class="mx-auto mt-10 inline-block rounded-lg bg-white/30 px-4 py-2">
+      <div class="relative left-0 top-0">
+        <p>
+          <a rel="noreferrer" href="https://github.com/flynncao/anime-hashtag-x" target="_blank">
+            <div class="mx-auto mt-10 h-20 w-20">
+              <img src="/favicon.svg" alt="" srcset="">
+            </div>
+            <p text-lg transition-all class="hover:text-[#0F766E]">
+              {{ t('intro.desc') }}
+            </p>
+            <p text-red-500>
+              {{ `*${t('intro.warning')}` }}
+            </p>
+
+          </a>
         </p>
 
-      </a>
-    </p>
-
-    <div py-4 />
-    <p class="hidden text-sm text-red-500">
-      {{ `*${t('intro.not-supported')}` }}
-    </p>
-    <div class="flex items-center justify-center">
-      <span>{{ t('label.input') }}</span>
-      <div class="i-twemoji-flag-for-flag-china text-lg" />
-      <span mx-2>/</span>
-      <div class="i-twemoji-flag-for-flag-japan text-lg" />
-    </div>
-    <div py-2 />
-    <TheInput
-      v-model="name"
-      :placeholder="t('intro.whats-your-name')"
-      autocomplete="false"
-      size="2xl"
-      @keydown.enter="go"
-    />
-    <label class="hidden" for="input">{{ t('intro.whats-your-name') }}</label>
-
-    <div class="py-2" />
-    <div>
-      <div>
+        <div py-2 />
+        <p class="hidden text-sm text-red-500">
+          {{ `*${t('intro.not-supported')}` }}
+        </p>
         <div class="flex items-center justify-center">
-          <span>{{ t('label.output') }}</span>
-          <div v-for="(item, index) in targetLangIcons" :key="index" class="mr-2 flex items-center text-lg">
-            <span class="mr-[2px] inline-block" :class="[item.icon]" />
-            <input v-model="item.checked" class="h-4 w-4" type="checkbox" :true-value="true" :disabled="(item.checked && targetLangsLength <= 1) || item.locale === 'ja'" :false-value="false">
-            <span v-if="index !== targetLangIcons.length - 1" bold class="px-2">+</span>
+          <span>{{ t('label.input') }}</span>
+          <div class="i-twemoji-flag-for-flag-china text-lg" />
+          <span mx-2>/</span>
+          <div class="i-twemoji-flag-for-flag-japan text-lg" />
+        </div>
+        <div py-2 />
+        <TheInput
+          v-model="name"
+          :placeholder="t('intro.whats-your-name')"
+          autocomplete="false"
+          size="2xl"
+          @keydown.enter="go"
+        />
+        <label class="hidden" for="input">{{ t('intro.whats-your-name') }}</label>
+
+        <div class="py-2" />
+        <div>
+          <div>
+            <div class="flex items-center justify-center">
+              <span>{{ t('label.output') }}</span>
+              <div v-for="(item, index) in targetLangIcons" :key="index" class="mr-2 flex items-center text-lg">
+                <span class="mr-[2px] inline-block" :class="[item.icon]" />
+                <input v-model="item.checked" class="h-4 w-4" type="checkbox" :true-value="true" :disabled="(item.checked && targetLangsLength <= 1) || item.locale === 'ja'" :false-value="false">
+                <span v-if="index !== targetLangIcons.length - 1" bold class="px-2">+</span>
+              </div>
+            </div>
           </div>
+          <button
+            mx-2 my-3 text-sm btn
+            :disabled="!name"
+            @click="go"
+          >
+            {{ t('button.go') }}
+          </button>
+          <button
+
+            :disabled="true"
+            mx-2 my-3 text-sm btn
+          >
+            {{ t('button.manually-select') }}
+          </button>
+          <button
+            mx-2 my-3 text-sm btn
+            @click="reset"
+          >
+            {{ t('button.reset') }}
+          </button>
+        </div>
+
+        <div class="py-2" />
+
+        <TheTextarea
+          v-model="content"
+          autocomplete="false"
+          :placeholder="placeholderText"
+          size="2xl"
+          :row-count="24"
+          :close-t-w-binding="true"
+        />
+        <div>
+          <button
+            m-3 text-sm btn
+            class="copyBtn"
+            :disabled="isResultTextEmpty()"
+            @click="handleCopy"
+          >
+            {{ t('button.copy') }}
+          </button>
         </div>
       </div>
-      <button
-        mx-2 my-3 text-sm btn
-        :disabled="!name"
-        @click="go"
-      >
-        {{ t('button.go') }}
-      </button>
-      <button
-
-        :disabled="true"
-        mx-2 my-3 text-sm btn
-      >
-        {{ t('button.manually-select') }}
-      </button>
-      <button
-        mx-2 my-3 text-sm btn
-        @click="reset"
-      >
-        {{ t('button.reset') }}
-      </button>
-    </div>
-
-    <div class="py-2" />
-
-    <TheTextarea
-      v-model="content"
-      autocomplete="false"
-      :placeholder="placeholderText"
-      size="2xl"
-      :row-count="24"
-      :close-t-w-binding="true"
-    />
-    <div>
-      <button
-        m-3 text-sm btn
-        class="copyBtn"
-        :disabled="isResultTextEmpty()"
-        @click="handleCopy"
-      >
-        {{ t('button.copy') }}
-      </button>
     </div>
   </div>
 </template>
@@ -251,3 +262,4 @@ function handleCopy() {
 meta:
   layout: home
 </route>
+~/api/MAL

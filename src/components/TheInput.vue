@@ -35,8 +35,8 @@ const calculatedWidth = computed(() => {
     p="x-4 y-2"
     text="center"
     bg="transparent"
-    :class="calculatedWidth"
-    border="~ rounded gray-200 dark:gray-700"
+    :class="[calculatedWidth]"
+    border="~ rounded gray-500 dark:gray-700"
     outline="none active:none"
   >
 </template>

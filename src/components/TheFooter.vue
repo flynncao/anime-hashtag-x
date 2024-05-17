@@ -26,7 +26,7 @@ async function toggleLocales() {
       <div i-carbon-language />
     </a>
 
-    <a icon-btn rel="noreferrer" href="https://github.com/flynncao/twitter-anime-hashtag" target="_blank" title="GitHub">
+    <a icon-btn rel="noreferrer" href="https://github.com/flynncao" target="_blank" title="GitHub">
       <div i-carbon-logo-github />
     </a>
   </nav>

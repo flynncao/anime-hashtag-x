@@ -19,10 +19,12 @@ intro:
   hi: 你好，{name}
   whats-your-name: 输入你的的番剧名
   not-supported: 目前英文输入/转化暂不受支持
+  warning: 由于MyAnilList的API问题，目前只支持中/日标签输出
 not-found: 未找到页面
 toast:
   no-result: 没有结果
   no-valid-result: 没有有效结果,换个词试试吧
+  mal-needed: 因为没有配置MyAnilistList的Token,功能受到限制！
 label:
   input: 输入
   output: 得到

@@ -1,5 +1,3 @@
-import { useToast } from 'vue-toastification'
-
 const toast = useToast()
 
 export function handleAxiosError(err?: any) {
