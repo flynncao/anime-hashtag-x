@@ -1,9 +1,10 @@
 import axios from 'axios'
 
 const token = import.meta.env.VITE_MAL_TOKEN
+const toast = useToast()
 
 if (!token)
-  throw new Error('MYANILIST_TOKEN is not defined, please check .env file under root directory.')
+  toast.error('Please provide a MyAnimeList token in the .env file')
 
 const axiosInstance = axios.create({
   baseURL: 'https://cors-proxy.fringe.zone/https://api.myanimelist.net',

@@ -2,15 +2,20 @@
 
 ## 描述
 
-输入动漫名称，生成Twitter等社交媒体平台所需的多语言话题标签。
+输入动漫名称，生成社交媒体平台所需的多语言**话题**标签。
 
 
-## 功能
+## 预览
 
-[ ] 完整的多语言支持（输入**简体中文/繁體中文/日本語/English**都可以得出完整的话题标签）
+![](https://raw.githubusercontent.com/flynncao/blog-images/main/img/preview.png)
 
-[ ] 允许用户刷新开发者提供的OAuth2.0 token，或用户自行注册的token（来自MyAnilist）
+## 版权 & 信息源
 
+[unsplash](https://unsplash.com/photos/people-on-sidewalks-in-rainy-city-street-mpf4ImREA1s)
+
+Bangumi.com
+
+MyAnilist
 
 ## License 
 

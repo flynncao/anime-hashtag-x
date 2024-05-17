@@ -46,6 +46,11 @@ export default defineConfig({
         'vue-router',
         'vue-i18n',
         '@vueuse/core',
+        {
+          'vue-toastification': [
+            'useToast',
+          ],
+        },
       ],
       dts: 'src/auto-imports.d.ts',
       dirs: [
@@ -98,7 +103,7 @@ export default defineConfig({
       manifest: {
         name: 'Vitesse',
         short_name: 'Vitesse',
-        theme_color: '#ffffff',
+        theme_color: '#e172b5',
         icons: [
           {
             src: '/pwa-192x192.png',

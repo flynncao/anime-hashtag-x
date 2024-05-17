@@ -38,7 +38,7 @@ const calculatedWidth = computed(() => {
     rows="5"
     bg="transparent"
     :class="calculatedWidth"
-    border="~ rounded gray-200 dark:gray-700"
+    border="~ rounded gray-500 dark:gray-700"
     outline="none active:none"
     :placeholder="placeholder"
   />
